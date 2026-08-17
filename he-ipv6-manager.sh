@@ -234,8 +234,8 @@ configure() {
   TUNNEL_MTU=$(prompt_value '隧道 MTU' "$old_mtu")
 
   [[ $INTERFACE =~ ^[a-zA-Z0-9_.-]{1,15}$ ]] || die "接口名不合法或超过 15 个字符。"
-  [[ $TUNNEL_MTU =~ ^[0-9]+$ ]] && ((TUNNEL_MTU >= 1280 && TUNNEL_MTU <= 1480)) \
-    || die "MTU 应在 1280–1480 之间。"
+    [[ $TUNNEL_MTU =~ ^[0-9]+$ ]] || die "MTU 必须是数字。"
+      ((TUNNEL_MTU >= 1280 && TUNNEL_MTU <= 1480)) || die "MTU 应在 1280–1480 之间。"
   [[ -z $ROUTED_64 || $ROUTED_64 == */64 ]] || warn "Routed /64 通常应以 /64 结尾，仍按输入内容保存。"
   [[ -z $ROUTED_48 || $ROUTED_48 == */48 ]] || warn "Routed /48 通常应以 /48 结尾，仍按输入内容保存。"
 
